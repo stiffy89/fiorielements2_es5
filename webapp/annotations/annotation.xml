@@ -1,4 +1,7 @@
 <edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
+        <edmx:Include Namespace="Org.OData.Core.V1" Alias="Core"/>
+    </edmx:Reference>
     <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
         <edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="Common"/>
     </edmx:Reference>
@@ -14,7 +17,7 @@
     <edmx:DataServices>
         <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="local">
             <Annotations Target="GWSAMPLE_BASIC.Contact/Initials">
-                <Annotation Term="UI.Hidden" Bool="false" />
+                <Annotation Term="Core.Computed" Bool="true" />
             </Annotations>
             <Annotations Target="GWSAMPLE_BASIC.Contact">
                 <Annotation Term="UI.LineItem">
@@ -75,7 +78,12 @@
                         <Record Type="UI.ReferenceFacet">
                             <PropertyValue Property="Label" String="Contact Information"/>
                             <PropertyValue Property="ID" String="contactinformation"/>
-                            <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#personalinformation"/>
+                            <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#contactinformation"/>
+                        </Record>
+                        <Record Type="UI.ReferenceFacet">
+                            <PropertyValue Property="Label" String="Address Information"/>
+                            <PropertyValue Property="ID" String="addressinformation"/>
+                            <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#addressinformation"/>
                         </Record>
                     </Collection>
                 </Annotation>
@@ -102,6 +110,58 @@
                                 <Record Type="UI.DataField">
                                     <PropertyValue Property="Value" Path="Initials"/>
                                     <PropertyValue Property="Label" String="Initials"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.FieldGroup" Qualifier="contactinformation">
+                    <Record Type="UI.FieldGroupType">
+                        <PropertyValue Property="Data">
+                            <Collection>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="PhoneNumber"/>
+                                    <PropertyValue Property="Label" String="Phone Number"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="FaxNumber"/>
+                                    <PropertyValue Property="Label" String="fax Number"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="EmailAddress"/>
+                                    <PropertyValue Property="Label" String="Email Address"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.FieldGroup" Qualifier="addressinformation">
+                    <Record Type="UI.FieldGroupType">
+                        <PropertyValue Property="Data">
+                            <Collection>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="Address/Street"/>
+                                    <PropertyValue Property="Label" String="Street"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="Address/City"/>
+                                    <PropertyValue Property="Label" String="City"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="Address/PostalCode"/>
+                                    <PropertyValue Property="Label" String="Postal Code"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="Address/Building"/>
+                                    <PropertyValue Property="Label" String="Building"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="Address/Country"/>
+                                    <PropertyValue Property="Label" String="Country"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="Address/AddressType"/>
+                                    <PropertyValue Property="Label" String="AddressType"/>
                                 </Record>
                             </Collection>
                         </PropertyValue>
