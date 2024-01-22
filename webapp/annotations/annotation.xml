@@ -2,6 +2,9 @@
     <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
         <edmx:Include Namespace="Org.OData.Core.V1" Alias="Core"/>
     </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Capabilities.V1.xml">
+        <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+    </edmx:Reference>
     <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
         <edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="Common"/>
     </edmx:Reference>
@@ -16,9 +19,27 @@
     </edmx:Reference>
     <edmx:DataServices>
         <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="local">
-            <Annotations Target="GWSAMPLE_BASIC.Contact/Initials">
-                <Annotation Term="Core.Computed" Bool="true" />
+            
+            <!-- Business Partner Set cannot be edited -->
+            <Annotations Target="GWSAMPLE_BASIC.GWSAMPLE_BASIC_Entities/BusinessPartnerSet">
+                <Annotation Term="Capabilities.UpdateRestrictions">
+                    <Record Type="Capabilities.UpdateRestrictionsType">
+                        <PropertyValue Property="Updatable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.InsertRestrictions">
+                    <Record Type="Capabilities.InsertRestrictionsType">
+                        <PropertyValue Property="Insertable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.DeleteRestrictions">
+                    <Record Type="Capabilities.DeleteRestrictionsType">
+                        <PropertyValue Property="Deletable" Bool="false"/>
+                    </Record>
+                </Annotation>
             </Annotations>
+
+            
             <Annotations Target="GWSAMPLE_BASIC.Contact">
                 <Annotation Term="UI.LineItem">
                     <Collection>
@@ -46,10 +67,6 @@
                             <PropertyValue Property="Value" Path="Sex"/>
                             <PropertyValue Property="Label" String="Sex"/>
                         </Record>
-                        <Record Type="UI.DataField">
-                            <PropertyValue Property="Value" Path="Initials"/>
-                            <PropertyValue Property="Label" String="Initials"/>
-                        </Record>
                     </Collection>
                 </Annotation>
                  <Annotation Term="UI.HeaderInfo">
@@ -70,20 +87,46 @@
                 </Annotation>
                 <Annotation Term="UI.Facets">
                     <Collection>
-                        <Record Type="UI.ReferenceFacet">
-                            <PropertyValue Property="Label" String="Personal Information"/>
-                            <PropertyValue Property="ID" String="personalinformation"/>
-                            <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#personalinformation"/>
+                        <Record Type="UI.CollectionFacet">
+                            <PropertyValue Property='Label' String='General Information'/>
+                            <PropertyValue Property="ID" String="generalinformation"/>
+                            <PropertyValue Property="Facets">
+                                <Collection>
+                                    <Record Type="UI.ReferenceFacet">
+                                        <PropertyValue Property="Label" String="Personal Information"/>
+                                        <PropertyValue Property="ID" String="personalinformation"/>
+                                        <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#personalinformation"/>
+                                    </Record>
+                                    <Record Type="UI.ReferenceFacet">
+                                        <PropertyValue Property="Label" String="Contact Information"/>
+                                        <PropertyValue Property="ID" String="contactinformation"/>
+                                        <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#contactinformation"/>
+                                    </Record>
+                                    <Record Type="UI.ReferenceFacet">
+                                        <PropertyValue Property="Label" String="Address Information"/>
+                                        <PropertyValue Property="ID" String="addressinformation"/>
+                                        <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#addressinformation"/>
+                                    </Record>
+                                </Collection>
+                            </PropertyValue>
                         </Record>
-                        <Record Type="UI.ReferenceFacet">
-                            <PropertyValue Property="Label" String="Contact Information"/>
-                            <PropertyValue Property="ID" String="contactinformation"/>
-                            <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#contactinformation"/>
-                        </Record>
-                        <Record Type="UI.ReferenceFacet">
-                            <PropertyValue Property="Label" String="Address Information"/>
-                            <PropertyValue Property="ID" String="addressinformation"/>
-                            <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#addressinformation"/>
+                        <Record Type="UI.CollectionFacet">
+                            <PropertyValue Property="Label" String="Business Partner"/>
+                            <PropertyValue Property="ID" String="businesspartner"/>
+                            <PropertyValue Property="Facets">
+                                <Collection>
+                                    <Record Type="UI.ReferenceFacet">
+                                        <PropertyValue Property="Label" String="Business Information"/>
+                                        <PropertyValue Property="ID" String="businessinformation"/>
+                                        <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#businessinformation"/>
+                                    </Record >
+                                    <Record Type="UI.ReferenceFacet">
+                                        <PropertyValue Property="Label" String="Business Address"/>
+                                        <PropertyValue Property="ID" String="businessaddress"/>
+                                        <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#businessaddress"/>
+                                    </Record >
+                                </Collection>
+                            </PropertyValue >
                         </Record>
                     </Collection>
                 </Annotation>
@@ -106,10 +149,6 @@
                                 <Record Type="UI.DataField">
                                     <PropertyValue Property="Value" Path="Nickname"/>
                                     <PropertyValue Property="Label" String="Nickname"/>
-                                </Record>
-                                <Record Type="UI.DataField">
-                                    <PropertyValue Property="Value" Path="Initials"/>
-                                    <PropertyValue Property="Label" String="Initials"/>
                                 </Record>
                             </Collection>
                         </PropertyValue>
@@ -159,9 +198,57 @@
                                     <PropertyValue Property="Value" Path="Address/Country"/>
                                     <PropertyValue Property="Label" String="Country"/>
                                 </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.FieldGroup" Qualifier="businessinformation">
+                    <Record Type="UI.FieldGroupType">
+                        <PropertyValue Property="Data">
+                            <Collection>
                                 <Record Type="UI.DataField">
-                                    <PropertyValue Property="Value" Path="Address/AddressType"/>
-                                    <PropertyValue Property="Label" String="AddressType"/>
+                                    <PropertyValue Property="Value" Path="BusinessPartnerID"/>
+                                    <PropertyValue Property="Label" String="Business ID"/>
+                                </Record >
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="ToBusinessPartner/CompanyName"/>
+                                    <PropertyValue Property="Label" String="Company Name"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="ToBusinessPartner/PhoneNumber"/>
+                                    <PropertyValue Property="Label" String="Phone Number"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="ToBusinessPartner/EmailAddress"/>
+                                    <PropertyValue Property="Label" String="EmailAddress"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.FieldGroup" Qualifier="businessaddress">
+                    <Record Type="UI.FieldGroupType">
+                        <PropertyValue Property="Data">
+                            <Collection>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="ToBusinessPartner/Address/Street"/>
+                                    <PropertyValue Property="Label" String="Street"/>
+                                </Record >
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="ToBusinessPartner/Address/City"/>
+                                    <PropertyValue Property="Label" String="City"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="ToBusinessPartner/Address/PostalCode"/>
+                                    <PropertyValue Property="Label" String="Postal Code"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="ToBusinessPartner/Address/Building"/>
+                                    <PropertyValue Property="Label" String="Building"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="ToBusinessPartner/Address/Country"/>
+                                    <PropertyValue Property="Label" String="Country"/>
                                 </Record>
                             </Collection>
                         </PropertyValue>

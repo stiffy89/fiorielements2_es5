@@ -101,6 +101,24 @@
             "config": {},
             "routes": [],
             "targets": {}
+        },
+        "extends": {
+            "extensions": {
+                "sap.ui.viewExtensions" : {
+                    "sap.suite.ui.generic.template.ObjectPage.view.Details" : {
+                        "SmartFormExtension|ContactSet|personalinformation" : {
+                            "className": "sap.ui.core.Fragment",
+                            "fragmentName": "ns.fiorielementses5.ext.fragments.initialsElement",
+                            "type": "XML"
+                        }
+                    }
+                },
+                "sap.ui.controllerExtensions" : {
+                    "sap.suite.ui.generic.template.ObjectPage.view.Details": {
+                        "controllerName" : "ns.fiorielementses5.ext.controller.ObjectPageExt"
+                    }
+                }
+            }
         }
     },
     "sap.ui.generic.app": {
