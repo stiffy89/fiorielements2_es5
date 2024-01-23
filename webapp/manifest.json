@@ -110,6 +110,11 @@
                             "className": "sap.ui.core.Fragment",
                             "fragmentName": "ns.fiorielementses5.ext.fragments.initialsElement",
                             "type": "XML"
+                        },
+                        "SmartFormExtension|ContactSet|contactinformation" : {
+                            "className" : "sap.ui.core.Fragment",
+                            "fragmentName" : "ns.fiorielementses5.ext.fragments.contactInformation",
+                            "type" : "XML"
                         }
                     }
                 },

@@ -20,7 +20,6 @@
     <edmx:DataServices>
         <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="local">
             
-            <!-- Business Partner Set cannot be edited -->
             <Annotations Target="GWSAMPLE_BASIC.GWSAMPLE_BASIC_Entities/BusinessPartnerSet">
                 <Annotation Term="Capabilities.UpdateRestrictions">
                     <Record Type="Capabilities.UpdateRestrictionsType">
@@ -29,16 +28,15 @@
                 </Annotation>
                 <Annotation Term="Capabilities.InsertRestrictions">
                     <Record Type="Capabilities.InsertRestrictionsType">
-                        <PropertyValue Property="Insertable" Bool="false"/>
+                        <PropertyValue Property="Insertable" Bool="true"/>
                     </Record>
                 </Annotation>
                 <Annotation Term="Capabilities.DeleteRestrictions">
                     <Record Type="Capabilities.DeleteRestrictionsType">
-                        <PropertyValue Property="Deletable" Bool="false"/>
+                        <PropertyValue Property="Deletable" Bool="true"/>
                     </Record>
                 </Annotation>
             </Annotations>
-
             
             <Annotations Target="GWSAMPLE_BASIC.Contact">
                 <Annotation Term="UI.LineItem">
@@ -150,6 +148,10 @@
                                     <PropertyValue Property="Value" Path="Nickname"/>
                                     <PropertyValue Property="Label" String="Nickname"/>
                                 </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="Sex"/>
+                                    <PropertyValue Property="Label" String="Sex"/>
+                                </Record>
                             </Collection>
                         </PropertyValue>
                     </Record>
@@ -158,18 +160,7 @@
                     <Record Type="UI.FieldGroupType">
                         <PropertyValue Property="Data">
                             <Collection>
-                                <Record Type="UI.DataField">
-                                    <PropertyValue Property="Value" Path="PhoneNumber"/>
-                                    <PropertyValue Property="Label" String="Phone Number"/>
-                                </Record>
-                                <Record Type="UI.DataField">
-                                    <PropertyValue Property="Value" Path="FaxNumber"/>
-                                    <PropertyValue Property="Label" String="fax Number"/>
-                                </Record>
-                                <Record Type="UI.DataField">
-                                    <PropertyValue Property="Value" Path="EmailAddress"/>
-                                    <PropertyValue Property="Label" String="Email Address"/>
-                                </Record>
+                                
                             </Collection>
                         </PropertyValue>
                     </Record>
@@ -255,6 +246,68 @@
                     </Record>
                 </Annotation>
             </Annotations>
+
+            <!-- > Annotation to turn business partner id into value help </-->
+            <Annotations Target="GWSAMPLE_BASIC.Contact/BusinessPartnerID">
+                <Annotation Term="Common.ValueList">
+                    <Record Type="Common.ValueListType">
+                        <PropertyValue Property="CollectionPath" String="BusinessPartnerSet"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="ValueListProperty" String="BusinessPartnerID"/>
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="BusinessPartnerID"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="CompanyName"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="SearchSupported" Bool="true"/>
+                        <PropertyValue Property="Label" String="Business Partner"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            
+
+            <!-- > Annotation to turn sex into value help </-->
+            <Annotations Target="GWSAMPLE_BASIC.Contact/Sex">
+		        <Annotation Term="Common.ValueListWithFixedValues" Bool="true"/>
+                <Annotation Term="Common.ValueList">
+                    <Record Type="Common.ValueListType">
+                        <PropertyValue Property="CollectionPath" String="VH_SexSet"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="ValueListProperty" String="Sex"/>
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="Sex"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="Label" String="Sex"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+
+            <!-- > Annotation to turn country into value help </-->
+            <Annotations Target="GWSAMPLE_BASIC.CT_Address/Country">
+		        <Annotation Term="Common.ValueListWithFixedValues" Bool="true"/>
+                <Annotation Term="Common.ValueList">
+                    <Record Type="Common.ValueListType">
+                        <PropertyValue Property="CollectionPath" String="VH_CountrySet"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="ValueListProperty" String="Land1"/>
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="Country"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="Label" String="Country"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            
         </Schema>
     </edmx:DataServices>
 </edmx:Edmx>

@@ -1,0 +1,26 @@
+<core:FragmentDefinition xmlns:sfi="sap.ui.comp.smartfield" xmlns:core="sap.ui.core" xmlns="sap.m" xmlns:sfo="sap.ui.comp.smartform">
+    <sfo:GroupElement>
+        <sfo:label>
+            <Label text='Phone Number'/>
+        </sfo:label>
+        <sfo:elements>
+            <sfi:SmartField value='{PhoneNumber}' change='.extension.ns.fiorielementses5.ext.controller.ObjectPageExt.PhoneNumberValidation'/>
+        </sfo:elements>
+    </sfo:GroupElement>
+    <sfo:GroupElement>
+        <sfo:label>
+            <Label text='Fax Number'/>
+        </sfo:label>
+        <sfo:elements>
+            <sfi:SmartField value='{FaxNumber}' change='.extension.ns.fiorielementses5.ext.controller.ObjectPageExt.PhoneNumberValidation'/>
+        </sfo:elements>
+    </sfo:GroupElement>
+    <sfo:GroupElement>
+        <sfo:label>
+            <Label text='Email'/>
+        </sfo:label>
+        <sfo:elements>
+            <sfi:SmartField value='{EmailAddress}' change='.extension.ns.fiorielementses5.ext.controller.ObjectPageExt.EmailValidation'/>
+        </sfo:elements>
+    </sfo:GroupElement>
+</core:FragmentDefinition>
