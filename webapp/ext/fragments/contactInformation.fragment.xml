@@ -4,7 +4,7 @@
             <Label text='Phone Number'/>
         </sfo:label>
         <sfo:elements>
-            <sfi:SmartField value='{PhoneNumber}' change='.extension.ns.fiorielementses5.ext.controller.ObjectPageExt.PhoneNumberValidation'/>
+            <sfi:SmartField id='contact_phonenumber' value='{PhoneNumber}' change='.extension.ns.fiorielementses5.ext.controller.ObjectPageExt.PhoneNumberValidation'/>
         </sfo:elements>
     </sfo:GroupElement>
     <sfo:GroupElement>
@@ -12,7 +12,7 @@
             <Label text='Fax Number'/>
         </sfo:label>
         <sfo:elements>
-            <sfi:SmartField value='{FaxNumber}' change='.extension.ns.fiorielementses5.ext.controller.ObjectPageExt.PhoneNumberValidation'/>
+            <sfi:SmartField id='contact_faxnumber' value='{FaxNumber}' change='.extension.ns.fiorielementses5.ext.controller.ObjectPageExt.PhoneNumberValidation'/>
         </sfo:elements>
     </sfo:GroupElement>
     <sfo:GroupElement>
@@ -20,7 +20,7 @@
             <Label text='Email'/>
         </sfo:label>
         <sfo:elements>
-            <sfi:SmartField value='{EmailAddress}' change='.extension.ns.fiorielementses5.ext.controller.ObjectPageExt.EmailValidation'/>
+            <sfi:SmartField id='contact_email' value='{EmailAddress}' change='.extension.ns.fiorielementses5.ext.controller.ObjectPageExt.EmailValidation'/>
         </sfo:elements>
     </sfo:GroupElement>
 </core:FragmentDefinition>

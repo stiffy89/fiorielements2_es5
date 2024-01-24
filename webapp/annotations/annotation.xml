@@ -170,6 +170,10 @@
                         <PropertyValue Property="Data">
                             <Collection>
                                 <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="Address/Building"/>
+                                    <PropertyValue Property="Label" String="Building"/>
+                                </Record>
+                                <Record Type="UI.DataField">
                                     <PropertyValue Property="Value" Path="Address/Street"/>
                                     <PropertyValue Property="Label" String="Street"/>
                                 </Record>
@@ -182,12 +186,12 @@
                                     <PropertyValue Property="Label" String="Postal Code"/>
                                 </Record>
                                 <Record Type="UI.DataField">
-                                    <PropertyValue Property="Value" Path="Address/Building"/>
-                                    <PropertyValue Property="Label" String="Building"/>
-                                </Record>
-                                <Record Type="UI.DataField">
                                     <PropertyValue Property="Value" Path="Address/Country"/>
                                     <PropertyValue Property="Label" String="Country"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="Address/AddressType"/>
+                                    <PropertyValue Property="Label" String="AddressType"/>
                                 </Record>
                             </Collection>
                         </PropertyValue>
@@ -300,6 +304,27 @@
                                 <Record Type="Common.ValueListParameterInOut">
                                     <PropertyValue Property="ValueListProperty" String="Land1"/>
                                     <PropertyValue Property="LocalDataProperty" PropertyPath="Country"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="Label" String="Country"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+
+            <!-- > Annotation to turn address type into value help </-->
+            <Annotations Target="GWSAMPLE_BASIC.CT_Address/AddressType">
+                <Annotation Term="Common.ValueList">
+                    <Record Type="Common.ValueListType">
+                        <PropertyValue Property="CollectionPath" String="VH_AddressTypeSet"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="ValueListProperty" String="AddressType"/>
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="AddressType"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="Shorttext"/>
                                 </Record>
                             </Collection>
                         </PropertyValue>

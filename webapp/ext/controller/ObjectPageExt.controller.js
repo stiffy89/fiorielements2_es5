@@ -5,6 +5,35 @@ sap.ui.define([
     'use strict';
 
     return ControllerExtension.extend('ns.fiorielementses5.ext.controller.ObjectPageExt', {
+        override: {
+            onInit: function () {
+                console.log(this)
+            },
+            beforeSaveExtension: function () {
+                let that = this;
+                let oController = this.getView().getController();
+                let aValidatingFields = [
+                    'contact_phonenumber',
+                    'contact_faxnumber',
+                    'contact_email'
+                ]
+
+                return new Promise(function(resolve, reject){
+                    let bIsValid = aValidatingFields.every((x) => {
+                        let sState = oController.byId(x).getValueState();
+                        return !(sState == 'Error')
+                    });
+
+                    if (bIsValid){
+                        resolve();
+                    } else {
+                        //show error dialog
+                        that.ShowErrorDialog("Edit Error", "Please fix your editing errors before continuing");
+                        reject();
+                    }
+                })
+            }
+        },
         InitialsFormatter: function (sFirstName, sLastName){
             if (sFirstName && sLastName){
                 return sFirstName.substring(0,1) + " " + sLastName.substring(0, 1);
@@ -45,6 +74,32 @@ sap.ui.define([
 
             oSource.setValueState('None');
             oSource.setValueStateText('');
+        },
+        ShowErrorDialog: function (sTitle, sMessage) {
+            let oDialog = new sap.m.Dialog({
+                title: sTitle,
+                content:[
+                    new sap.m.VBox({
+                        alignItems: sap.m.FlexAlignItems.Center,
+                        items:[
+                            new sap.m.Text({
+                                text: sMessage
+                            })
+                        ]
+                    })
+                ],
+                beginButton: new sap.m.Button({
+                    text: "OK",
+                    press: function () {
+                        oDialog.close()
+                    }
+                }),
+                afterClose: function () {
+                    oDialog.destroy();
+                }
+            }).addStyleClass('errorDialog');
+
+            oDialog.open();
         }
     }) 
 });

@@ -81,6 +81,7 @@
                 "dataSource": "mainService",
                 "preload": true,
                 "settings": {
+                    "useBatch" : false,
                     "defaultBindingMode": "TwoWay",
                     "defaultCountMode": "Inline",
                     "refreshAfterChange": false,
@@ -95,7 +96,11 @@
             }
         },
         "resources": {
-            "css": []
+            "css": [
+                {
+                    "uri" : "ext/css/style.css"
+                }
+            ]
         },
         "routing": {
             "config": {},
